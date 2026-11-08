@@ -4,35 +4,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Placa não encontrada (404) · Veloz Acompanha</title>
+  <meta name="description" content="Este endereço não existe no Veloz Acompanha. Volte ao início, faça o tour ou conserte o carro e desvie dos cones.">
   <meta name="robots" content="noindex">
   <link rel="icon" href="/oficina-veloz/assets/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="/oficina-veloz/css/styles.css?v=6">
+  <link rel="stylesheet" href="/oficina-veloz/css/styles.css?v=7">
 </head>
 <body class="is-404">
-  <header class="topbar">
-    <a class="brand" href="/oficina-veloz/">
-      <img src="/oficina-veloz/assets/icon.svg" alt="" width="38" height="38">
-      <span class="brand-text"><strong>Veloz Acompanha</strong><small>para a Auto Center Veloz</small></span>
-    </a>
-  </header>
+  <a class="marca-404" href="/oficina-veloz/"><img src="/oficina-veloz/assets/icon.svg" alt="" width="32" height="32">Veloz Acompanha</a>
   <main id="app" class="main-404">
     <section class="notfound">
-      <div class="notfound-cena" data-jogo404></div>
       <div class="notfound-texto">
-        <p class="eyebrow">Erro 404 · página não encontrada</p>
+        <p class="eyebrow">Erro 404</p>
+        <div class="num-404" aria-hidden="true">4<b>0</b>4</div>
         <h1>Placa não encontrada</h1>
         <p class="muted">Essa página não está no estoque: o endereço que você abriu não existe. Volte para o início ou faça o tour de 2 minutos.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/oficina-veloz/#/tour/1">Fazer o tour</a>
           <a class="btn btn-ghost" href="/oficina-veloz/">Voltar para o início</a>
         </div>
+        <p class="dica-404" id="dica404"></p>
       </div>
+      <div class="notfound-cena" data-jogo404></div>
     </section>
   </main>
-  <script src="/oficina-veloz/js/jogo-404.js?v=4"></script>
-  <script>Jogo404.mount(document.querySelector("[data-jogo404]"));</script>
+  <script src="/oficina-veloz/js/jogo-404.js?v=6"></script>
+  <script>
+    (function () {
+      var toque = window.matchMedia && matchMedia('(pointer: coarse)').matches, rec = 0;
+      try { rec = parseInt(localStorage.getItem('veloz:404:recorde'), 10) || 0; } catch (e) { /* sem armazenamento */ }
+      document.getElementById('dica404').innerHTML =
+        (toque ? '<span><strong>Toque no carro para jogar</strong></span>' : '<span><kbd>espaço</kbd> <strong>para jogar</strong></span>') +
+        '<span class="sep" aria-hidden="true">·</span><span>conserte o carro e pule os cones' + (rec ? ' · recorde ' + rec + ' m' : '') + '</span>';
+    })();
+    Jogo404.mount(document.querySelector("[data-jogo404]"), { chamada: false });
+  </script>
 </body>
 </html>

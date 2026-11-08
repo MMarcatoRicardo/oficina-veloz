@@ -621,17 +621,33 @@ h1[tabindex="-1"]:focus { outline: none; }
 .stage-panel .progress a { flex-direction: column; align-items: flex-start; gap: 4px; font-size: .82rem; line-height: 1.15; }
 .on-dark .phone .btn-ghost { color: var(--text); border-color: var(--border); }
 
-/* Página 404: a cena é o jogo; a página inteira cabe na tela, sem rolagem */
-body.is-404 { height: 100vh; height: 100dvh; overflow: hidden; }
+/* Página 404 limpa: sem barra no topo, 404 grande, a cena do carro embaixo vira o jogo; cabe na tela, sem rolagem */
+body.is-404 { height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
 body.is-404 .footer { display: none; }
-body.is-404 main { display: flex; flex-direction: column; min-height: 0; }
-.notfound { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 12px clamp(16px, 3vw, 32px) 20px; gap: 4px; }
-.notfound-cena { flex: 1; min-height: 140px; width: 100%; max-width: 900px; display: flex; }
-.jogo-canvas { flex: 1; width: 100%; height: 100%; min-height: 0; object-fit: contain; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.marca-404 { position: absolute; top: clamp(14px, 3vh, 24px); left: clamp(16px, 4vw, 48px); z-index: 2; display: inline-flex; align-items: center; gap: 10px;
+  color: var(--text); text-decoration: none; font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; letter-spacing: .02em; text-transform: uppercase; }
+.marca-404 img { width: 32px; height: 32px; }
+.main-404 { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.notfound { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: clamp(64px, 10vh, 104px) clamp(16px, 3vw, 32px) clamp(10px, 2vh, 20px); }
+.notfound-texto { flex: none; max-width: 640px; }
+.notfound .eyebrow { margin-bottom: 0; }
+.num-404 { font-family: var(--font-display); font-weight: 800; font-size: clamp(76px, min(22vw, 17vh), 200px); line-height: .9; letter-spacing: .01em; color: var(--text); margin: 2px 0 4px; }
+.num-404 b { display: inline-block; color: var(--accent); -webkit-text-stroke: max(2px, .025em) var(--ink); paint-order: stroke fill; animation: roda-solta 3.4s cubic-bezier(.2,.7,.2,1) infinite; }
+@keyframes roda-solta { 0%, 68%, 100% { transform: none; } 76% { transform: translateX(.06em) rotate(14deg); } 84% { transform: translateX(-.03em) rotate(-8deg); } 91% { transform: rotate(3deg); } }
+.notfound h1 { font-size: clamp(1.7rem, 4.4vw, 2.6rem); margin: 0 0 6px; }
+.notfound .muted { margin: 0 auto 16px; max-width: 46ch; }
+.notfound .hero-actions { justify-content: center; margin-top: 0; }
+.dica-404 { margin: 14px 0 0; font-size: .95rem; color: var(--muted); display: flex; gap: 6px 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.dica-404 strong { color: var(--text); font-family: var(--font-display); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; animation: respira-404 1.8s ease-in-out infinite; }
+.dica-404 kbd { font: 600 .8rem var(--font); padding: 2px 8px; border: 1px solid var(--border); border-bottom-width: 3px; border-radius: 6px; background: var(--surface); color: var(--text); }
+@keyframes respira-404 { 50% { opacity: .5; } }
+.notfound-cena { flex: 1; min-height: 120px; width: 100%; max-width: 900px; display: flex; margin-top: 4px; }
+.jogo-canvas { flex: 1; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center bottom; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .jogo-canvas:focus { outline: none; }
 .jogo-canvas:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
-.notfound-texto { flex: none; max-width: 640px; }
-.notfound h1 { font-size: clamp(1.9rem, 5vw, 3rem); margin-bottom: 6px; }
-.notfound .muted { margin: 0 auto 14px; max-width: 52ch; }
-.notfound .hero-actions { justify-content: center; margin-top: 0; }
-@media (max-height: 560px) { .notfound .muted { display: none; } .notfound .eyebrow { display: none; } }
+@media (max-width: 520px) { .dica-404 { flex-direction: column; gap: 2px; } .dica-404 .sep { display: none; } }
+/* celular em pé: texto e cena juntos, centralizados na altura, sem vão no meio */
+@media (max-aspect-ratio: 3/4) { .notfound { justify-content: center; } .notfound-cena { flex: 0 1 auto; aspect-ratio: 440 / 320; margin-top: 18px; } }
+@media (max-height: 640px) { .notfound .muted { display: none; } }
+@media (max-height: 560px) { .notfound { padding-top: 54px; } .num-404, .notfound .eyebrow { display: none; } .dica-404 { margin-top: 8px; } }
+@media (prefers-reduced-motion: reduce) { .num-404 b, .dica-404 strong { animation: none; } }
