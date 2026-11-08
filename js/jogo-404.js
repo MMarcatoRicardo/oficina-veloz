@@ -1,6 +1,7 @@
 /* Página 404 que vira jogo: o carro da Veloz está quebrado (roda fugindo, fumaça, macaco, placa PAG-404).
    Ao apertar espaço (ou tocar), a roda volta, o carro se endireita e começa a corrida pulando cones e pneus.
-   Sem dependências. Uso: Jogo404.mount(elemento). */
+   Sem dependências. Uso: Jogo404.mount(elemento, { chamada: false }).
+   chamada: false = a cena parada não escreve "Pressione espaço" no desenho (a página mostra a dica em texto). */
 (function () {
   'use strict';
 
@@ -18,7 +19,8 @@
   }
   function suave(t) { return t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t); }
 
-  function mount(host) {
+  function mount(host, opcoes) {
+    opcoes = opcoes || {};
     if (!host || host.dataset.montado) return;
     host.dataset.montado = '1';
     /* Tela estreita (celular em pé): enquadramento mais fechado, para o carro aparecer maior. */
@@ -206,6 +208,13 @@
       var cx = ESTREITO ? W / 2 : (largura ? largura / 2 : W / 2);
       var dy = ESTREITO && desce ? 70 : 0;
       ctx.save(); ctx.globalAlpha = alfa == null ? 1 : alfa;
+      if (desce) {
+        /* fundo na cor da página: a mensagem não se mistura com a placa que passa atrás */
+        ctx.font = '700 ' + (ESTREITO ? 26 : 30) + 'px ' + fonte;
+        var lw = Math.max(ctx.measureText(linha1).width, 180) + 36;
+        ctx.fillStyle = getComputedStyle(document.body).backgroundColor || '#ecebe6';
+        rr(ctx, cx - lw / 2, 14 + dy, lw, linha2 ? 70 : 44, 10); ctx.fill();
+      }
       ctx.textAlign = 'center'; ctx.fillStyle = corTexto();
       ctx.font = '700 ' + (ESTREITO ? 26 : 30) + 'px ' + fonte; ctx.fillText(linha1, cx, 46 + dy);
       if (linha2) { ctx.font = '500 ' + (ESTREITO ? 16 : 18) + 'px ' + fonte; ctx.fillText(linha2, cx, 72 + dy); }
@@ -261,7 +270,7 @@
       }
 
       var chamada = toque ? 'TOQUE NA ESTRADA PARA JOGAR' : 'PRESSIONE ESPAÇO PARA JOGAR';
-      if (quebrado) {
+      if (quebrado && opcoes.chamada !== false) {
         texto(chamada, 'Conserte o carro e desvie dos cones' + (recorde ? ' · recorde: ' + recorde + ' m' : ''),
           calmo ? 1 : 0.65 + 0.35 * Math.sin(s.t * 3), W - 150);
       } else if (s.modo === 'bateu') {
