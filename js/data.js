@@ -22,21 +22,24 @@
 
   function minutesAgo(m) { return Date.now() - m * 60000; }
 
-  function photo(label, tone) {
-    var c = tone === 'bad' ? '#dc2626' : tone === 'warn' ? '#f59e0b' : '#16a34a';
-    var svg =
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 200'>" +
-      "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>" +
-      "<stop offset='0' stop-color='#334155'/><stop offset='1' stop-color='#0f172a'/></linearGradient></defs>" +
-      "<rect width='320' height='200' fill='url(#g)'/>" +
-      "<circle cx='160' cy='92' r='52' fill='none' stroke='#94a3b8' stroke-width='14'/>" +
-      "<circle cx='160' cy='92' r='18' fill='#64748b'/>" +
-      "<path d='M118 60 L150 92' stroke='" + c + "' stroke-width='6' stroke-linecap='round'/>" +
-      "<rect x='0' y='150' width='320' height='50' fill='rgba(0,0,0,.55)'/>" +
-      "<text x='14' y='183' font-family='Arial' font-weight='bold' font-size='21' fill='#fff'>" + label + "</text>" +
-      "<circle cx='300' cy='175' r='8' fill='" + c + "'/></svg>";
-    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-  }
+  /* Fotos reais (Wikimedia Commons, licenças livres). Créditos em CREDITOS e no README. */
+  var IMG = 'assets/img/';
+  var CREDITOS = [
+    { arquivo: 'hero.webp', uso: 'Capa', autor: 'Shixart1985', licenca: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Car_repair_in_an_auto_shop_with_tools_and_equipment_present_on_the_floor_and_a_partially_disassembled_vehicle_on_a_lift.jpg' },
+    { arquivo: 'mecanico.webp', uso: 'Mecânico', autor: 'Shixart1985', licenca: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Car_mechanic_worker_repairing_suspension_of_lifted_automobile_at_auto_repair_garage_shop.jpg' },
+    { arquivo: 'elevador.webp', uso: 'Recepção / elevador', autor: 'Shixart1985', licenca: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Car_lift_in_an_auto_repair_shop_with_vehicles_and_tools_present.jpg' },
+    { arquivo: 'pastilha.webp', uso: 'Pastilha de freio', autor: 'Riley from Christchurch, New Zealand', licenca: 'CC BY 2.0', url: 'https://commons.wikimedia.org/wiki/File:Alarm_bells!_(25681917701).jpg' },
+    { arquivo: 'palheta.webp', uso: 'Palheta do limpador', autor: 'cogdogblog', licenca: 'CC0', url: 'https://commons.wikimedia.org/wiki/File:Or_none_at_all._My_wiper_blades_have_not_moved_in_weeks_and_are_good_at_trapping_pine_needles._(2982646061).jpg' },
+    { arquivo: 'bateria.webp', uso: 'Teste de bateria', autor: 'Azorbli', licenca: 'CC BY-SA 4.0', url: 'https://commons.wikimedia.org/wiki/File:Car_battery.jpg' },
+    { arquivo: 'amortecedor.webp', uso: 'Amortecedor', autor: 'Bukk', licenca: 'Domínio público', url: 'https://commons.wikimedia.org/wiki/File:Federbein_Seicento.JPG' }
+  ];
+
+  /* Item que o mecânico encontra durante o tour guiado. */
+  var TOUR_ITEM = {
+    desc: 'Pastilhas de freio dianteiras', valor: 260,
+    obs: 'Pastilhas com 2 mm, abaixo do limite de segurança (3 mm). Trocar evita danificar o disco.',
+    foto: IMG + 'pastilha.webp'
+  };
 
   function seed() {
     return {
@@ -75,8 +78,8 @@
           entrada: minutesAgo(210), stepSince: minutesAgo(95), previsao: 'Hoje, 17h30',
           itens: [
             { id: 'i1', desc: 'Troca de óleo e filtro', valor: 189.9, status: 'aprovado', obs: 'Revisão preventiva solicitada na entrada.', foto: null },
-            { id: 'i2', desc: 'Pastilhas de freio dianteiras', valor: 260, status: 'pendente', obs: 'Pastilhas com 2 mm, abaixo do limite de segurança (3 mm).', foto: photo('Pastilha dianteira: 2 mm', 'bad') },
-            { id: 'i3', desc: 'Palheta do limpador', valor: 79.9, status: 'pendente', obs: 'Borracha ressecada, deixa marcas no vidro. Opcional.', foto: photo('Palheta ressecada', 'warn') }
+            { id: 'i2', desc: 'Pastilhas de freio dianteiras', valor: 260, status: 'pendente', obs: 'Pastilhas com 2 mm, abaixo do limite de segurança (3 mm). Trocar evita danificar o disco.', foto: IMG + 'pastilha.webp' },
+            { id: 'i3', desc: 'Palheta do limpador', valor: 79.9, status: 'pendente', obs: 'Borracha ressecada, deixa marcas no vidro. Opcional.', foto: IMG + 'palheta.webp' }
           ],
           timeline: [
             { t: minutesAgo(210), msg: 'Veículo recebido pela recepção' },
@@ -90,7 +93,7 @@
           entrada: minutesAgo(300), stepSince: minutesAgo(60), previsao: 'Hoje, 16h00',
           itens: [
             { id: 'i1', desc: 'Alinhamento e balanceamento', valor: 150, status: 'aprovado', obs: '', foto: null },
-            { id: 'i2', desc: 'Amortecedores traseiros (par)', valor: 890, status: 'aprovado', obs: 'Vazamento de óleo no amortecedor esquerdo.', foto: photo('Amortecedor com vazamento', 'bad') }
+            { id: 'i2', desc: 'Amortecedores traseiros (par)', valor: 890, status: 'aprovado', obs: 'Vazamento de óleo no amortecedor esquerdo.', foto: IMG + 'amortecedor.webp' }
           ],
           timeline: [
             { t: minutesAgo(300), msg: 'Veículo recebido pela recepção' },
@@ -106,7 +109,7 @@
           entrada: minutesAgo(420), stepSince: minutesAgo(25), previsao: 'Pronto',
           itens: [
             { id: 'i1', desc: 'Revisão 40.000 km', valor: 980, status: 'aprovado', obs: '', foto: null },
-            { id: 'i2', desc: 'Filtro de ar-condicionado', valor: 95, status: 'aprovado', obs: 'Filtro saturado.', foto: photo('Filtro de cabine saturado', 'warn') },
+            { id: 'i2', desc: 'Filtro de ar-condicionado', valor: 95, status: 'aprovado', obs: 'Filtro saturado.', foto: null },
             { id: 'i3', desc: 'Higienização do ar-condicionado', valor: 120, status: 'recusado', obs: 'Opcional.', foto: null }
           ],
           timeline: [
@@ -135,7 +138,7 @@
           telefone: '41999990005', elevador: null, mecanico: 'Marcos', step: 2,
           entrada: minutesAgo(260), stepSince: minutesAgo(185), previsao: 'A definir',
           itens: [
-            { id: 'i1', desc: 'Bateria 60 Ah', valor: 520, status: 'pendente', obs: 'Teste de carga reprovado (9,8 V na partida).', foto: photo('Teste de bateria: 9,8 V', 'bad') }
+            { id: 'i1', desc: 'Bateria 60 Ah', valor: 520, status: 'pendente', obs: 'Teste de carga reprovado (9,8 V na partida).', foto: IMG + 'bateria.webp' }
           ],
           timeline: [
             { t: minutesAgo(260), msg: 'Veículo recebido pela recepção' },
@@ -147,5 +150,19 @@
     };
   }
 
-  window.VELOZ_DATA = { STEPS: STEPS, MECANICOS: MECANICOS, ELEVADORES: ELEVADORES, OFICINA: OFICINA, seed: seed };
+  /* Cenário do tour: o Gol da Mariana ainda em diagnóstico, sem itens extras. */
+  function tourScenario(state) {
+    var o = state.orders.filter(function (x) { return x.id === 'OS-1042'; })[0];
+    o.step = 1; o.stepSince = minutesAgo(20); o.elevador = 1; o.previsao = 'Hoje, 17h30';
+    o.itens = [{ id: 'i1', desc: 'Troca de óleo e filtro', valor: 189.9, status: 'aprovado', obs: 'Revisão preventiva solicitada na entrada.', foto: null }];
+    o.timeline = [
+      { t: minutesAgo(120), msg: 'Veículo recebido pela recepção. Link enviado por WhatsApp' },
+      { t: minutesAgo(20), msg: 'Carlos iniciou o diagnóstico no elevador 1' }
+    ];
+    delete o.avaliacao;
+    return state;
+  }
+
+  window.VELOZ_DATA = { STEPS: STEPS, MECANICOS: MECANICOS, ELEVADORES: ELEVADORES, OFICINA: OFICINA, seed: seed,
+    IMG: IMG, CREDITOS: CREDITOS, TOUR_ITEM: TOUR_ITEM, tourScenario: tourScenario };
 })();
