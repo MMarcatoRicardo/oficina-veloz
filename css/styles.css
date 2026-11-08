@@ -624,3 +624,12 @@ h1[tabindex="-1"]:focus { outline: none; }
 .day-total strong { white-space: nowrap; }
 .stage-panel .progress a { flex-direction: column; align-items: flex-start; gap: 4px; font-size: .82rem; line-height: 1.15; }
 .on-dark .phone .btn-ghost { color: var(--text); border-color: var(--border); }
+
+/* Joguinho da 404 */
+.jogo { max-width: 720px; margin: 8px auto 40px; text-align: center; }
+.jogo h2 { font-size: 1.4rem; margin-bottom: 10px; }
+.jogo-canvas { display: block; width: 100%; height: auto; aspect-ratio: 680 / 250; border-radius: var(--radius); cursor: pointer; touch-action: manipulation; background: var(--surface-2); }
+.jogo-canvas:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.jogo-dica { margin: 10px 0 0; font-size: .9rem; color: var(--muted); }
+kbd { font: 700 .82rem var(--font); padding: 1px 6px; border: 1px solid var(--border); border-bottom-width: 3px; border-radius: 4px; background: var(--surface); color: var(--text); }
+@media (max-width: 720px) { .jogo { padding: 10px; margin-left: -6px; margin-right: -6px; } .jogo h2 { font-size: 1.2rem; } }

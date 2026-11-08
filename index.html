@@ -28,7 +28,7 @@
   <link rel="preload" as="image" href="assets/img/hero-sm.webp" media="(max-width: 800px)">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap"></noscript>
-  <link rel="stylesheet" href="css/styles.css?v=3">
+  <link rel="stylesheet" href="css/styles.css?v=5">
   <script>
     /* Aplica o tema salvo antes da pintura, para não piscar. */
     try { var t = localStorage.getItem('veloz:tema'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -71,7 +71,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="js/data.js?v=3"></script>
   <script src="js/dev.js?v=3"></script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/jogo-404.js?v=2"></script>
+  <script src="js/app.js?v=4"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });

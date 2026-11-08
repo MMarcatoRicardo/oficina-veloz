@@ -811,11 +811,12 @@
   function viewNotFound() {
     return '<div class="wrap"><section class="notfound">' +
       '<img class="notfound-art" src="assets/carro-404.svg" width="680" height="320" alt="Carro amarelo com pane: a roda dianteira saiu rolando, sai fumaça do capô e uma placa mostra PAG-404">' +
-      '<p class="eyebrow">Erro 404 · ordem de serviço não encontrada</p>' +
-      '<h1>Essa página deu pane</h1>' +
-      '<p class="muted">A roda foi embora e levou o endereço junto. Enquanto o mecânico procura, volte para o início ou faça o tour de 2 minutos.</p>' +
+      '<p class="eyebrow">Erro 404 · página não encontrada</p>' +
+      '<h1>Placa não encontrada</h1>' +
+      '<p class="muted">Essa página não está no estoque: o endereço que você abriu não existe. Volte para o início, faça o tour de 2 minutos ou dê uma volta na estrada aí embaixo.</p>' +
       '<div class="hero-actions" style="justify-content:center"><a class="btn btn-primary" href="#/tour/1">' + icon('play') + ' Fazer o tour</a><a class="btn btn-ghost" href="#/">Voltar para o início</a></div>' +
-      '</section></div>';
+      '</section>' +
+      '<section class="card jogo" aria-labelledby="jogo-t"><h2 id="jogo-t">Enquanto isso, dá uma volta</h2><div data-jogo404></div></section></div>';
   }
 
   function abrirComprovante(o) {
@@ -878,13 +879,15 @@
     });
     Array.prototype.forEach.call(app.querySelectorAll('.screen'), function (s, i) { if (scrolls[i]) s.scrollTop = scrolls[i]; });
 
+    var jogo = app.querySelector('[data-jogo404]');
+    if (jogo && window.Jogo404) window.Jogo404.mount(jogo);
     document.querySelectorAll('[data-nav]').forEach(function (a) {
       var on = a.dataset.nav === nav;
       a.classList.toggle('active', on);
       if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     var titles = { inicio: 'Veloz Acompanha · estudo de caso de UX para oficina mecânica', tour: 'Tour guiado · Veloz Acompanha', cliente: 'Tela do cliente · Veloz Acompanha', mecanico: 'Tela do mecânico · Veloz Acompanha', recepcao: 'Painel da recepção · Veloz Acompanha', sobre: 'Sobre o projeto · Veloz Acompanha', desenvolvedor: 'Sobre o projeto · Veloz Acompanha' };
-    document.title = titles[nav] || 'Página não encontrada · Veloz Acompanha';
+    document.title = titles[nav] || 'Placa não encontrada (404) · Veloz Acompanha';
   }
 
   function go() {
@@ -1109,7 +1112,7 @@
 
   window.addEventListener('hashchange', go);
   setInterval(function () {
-    if (!document.querySelector('dialog[open], details[open], input:focus, textarea:focus, select:focus')) render();
+    if (!document.querySelector('dialog[open], details[open], input:focus, textarea:focus, select:focus, [data-jogo404]')) render();
   }, 60000);
   go();
 })();
