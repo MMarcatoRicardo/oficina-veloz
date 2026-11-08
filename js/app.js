@@ -810,10 +810,11 @@
 
   function viewNotFound() {
     return '<div class="wrap"><section class="notfound">' +
-      '<p class="big" aria-hidden="true">404</p>' +
-      '<h1>Essa peça não está no estoque</h1>' +
-      '<p class="muted">O endereço que você abriu não existe neste app. Volte para o início ou faça o tour guiado.</p>' +
-      '<div class="hero-actions" style="justify-content:center"><a class="btn btn-primary" href="#/tour/1">' + icon('play') + ' Fazer o tour</a><a class="btn btn-ghost" href="#/">Ir para o início</a></div>' +
+      '<img class="notfound-art" src="assets/carro-404.svg" width="680" height="320" alt="Carro amarelo com pane: a roda dianteira saiu rolando, sai fumaça do capô e uma placa mostra PAG-404">' +
+      '<p class="eyebrow">Erro 404 · ordem de serviço não encontrada</p>' +
+      '<h1>Essa página deu pane</h1>' +
+      '<p class="muted">A roda foi embora e levou o endereço junto. Enquanto o mecânico procura, volte para o início ou faça o tour de 2 minutos.</p>' +
+      '<div class="hero-actions" style="justify-content:center"><a class="btn btn-primary" href="#/tour/1">' + icon('play') + ' Fazer o tour</a><a class="btn btn-ghost" href="#/">Voltar para o início</a></div>' +
       '</section></div>';
   }
 

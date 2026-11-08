@@ -1,9 +1,9 @@
 /* Service worker: deixa o app abrindo offline (cache do app shell). */
-var CACHE = 'veloz-v3';
+var CACHE = 'veloz-v4';
 var SHELL = [
   './', 'index.html', 'css/styles.css', 'js/data.js', 'js/dev.js', 'js/app.js',
   'manifest.webmanifest', 'assets/icon.svg', 'assets/icon-192.png', 'assets/icon-512.png',
-  '404.html', 'assets/img/hero.webp', 'assets/img/hero-sm.webp', 'assets/img/pastilha.webp', 'assets/img/palheta.webp', 'assets/img/mecanico.webp', 'assets/img/elevador.webp'
+  '404.html', 'assets/carro-404.svg', 'assets/img/hero.webp', 'assets/img/hero-sm.webp', 'assets/img/pastilha.webp', 'assets/img/palheta.webp', 'assets/img/mecanico.webp', 'assets/img/elevador.webp'
 ];
 
 self.addEventListener('install', function (e) {

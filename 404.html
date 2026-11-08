@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="/oficina-veloz/css/styles.css">
+  <link rel="stylesheet" href="/oficina-veloz/css/styles.css?v=3">
 </head>
 <body>
   <header class="topbar">
@@ -21,12 +21,14 @@
   <main id="app">
     <div class="wrap">
       <section class="notfound">
-        <p class="big" aria-hidden="true">404</p>
-        <h1>Essa peça não está no estoque</h1>
-        <p class="muted">O endereço que você abriu não existe. Volte para o início ou faça o tour guiado de 2 minutos.</p>
+        <img class="notfound-art" src="/oficina-veloz/assets/carro-404.svg" width="680" height="320"
+             alt="Carro amarelo com pane: a roda dianteira saiu rolando, sai fumaça do capô e uma placa mostra PAG-404">
+        <p class="eyebrow">Erro 404 · ordem de serviço não encontrada</p>
+        <h1>Essa página deu pane</h1>
+        <p class="muted">A roda foi embora e levou o endereço junto. Enquanto o mecânico procura, volte para o início ou faça o tour de 2 minutos.</p>
         <div class="hero-actions" style="justify-content:center">
           <a class="btn btn-primary" href="/oficina-veloz/#/tour/1">Fazer o tour</a>
-          <a class="btn btn-ghost" href="/oficina-veloz/">Ir para o início</a>
+          <a class="btn btn-ghost" href="/oficina-veloz/">Voltar para o início</a>
         </div>
       </section>
     </div>
