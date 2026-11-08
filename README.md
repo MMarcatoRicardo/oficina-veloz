@@ -64,6 +64,7 @@ Quem chega pelo link não precisa adivinhar nada:
 - a **página inicial** conta o problema e a solução;
 - um **tour guiado de 4 passos** faz a pessoa viver o fluxo (WhatsApp → mecânico → cliente → pátio);
 - cada tela tem um painel **"O que olhar"** que explica os termos da oficina (OS, elevador).
+- e até o erro diverte: a **página 404** é o carro da Veloz quebrado no macaco, e ao apertar espaço (ou tocar) a cena vira um joguinho no estilo do dinossauro do Chrome, em que o carro pula cones e pneus. A página cabe na tela sem rolagem e guarda o recorde no navegador.
 
 ## Stack e arquitetura
 
@@ -82,7 +83,7 @@ HTML, CSS e JavaScript puros, **sem framework e sem build**. Funciona offline e 
 ```
 oficina-veloz/
 ├── index.html            # Página única com metatags (SEO e Open Graph)
-├── 404.html              # Página de erro do GitHub Pages
+├── 404.html              # Página de erro do GitHub Pages ("Placa não encontrada" + jogo)
 ├── manifest.webmanifest  # PWA
 ├── sw.js                 # Service worker (offline)
 ├── assets/               # Logo, ícones, imagem de compartilhamento e fotos (img/)
@@ -90,6 +91,7 @@ oficina-veloz/
 ├── js/data.js            # Etapas, mecânicos, dados de exemplo, cenário do tour e créditos
 ├── js/app.js             # Rotas, telas, tour guiado e ações
 ├── js/dev.js             # Página "Sobre": autor e repositórios via API pública do GitHub
+├── js/jogo-404.js        # Cena da página 404 que vira jogo (canvas, sem dependências)
 └── docs/screenshots/     # Imagens deste README
 ```
 
