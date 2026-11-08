@@ -6,7 +6,7 @@
 
   /* Usado quando a API do GitHub não responde (offline ou limite de requisições). */
   var FALLBACK = {
-    nome: 'Ricardo Medeiros',
+    nome: 'Ricardo Medeiros Marcato',
     login: USER,
     cargo: 'Data Analyst | Software Engineer',
     bio: 'Python • SQL • PostgreSQL • BI • Data Engineering. Building data-driven solutions and software that solve real problems.',
@@ -60,44 +60,46 @@
 
   function view() {
     var d = data();
+    var cred = (window.VELOZ_DATA && window.VELOZ_DATA.CREDITOS) || [];
     return '<section class="dev">' +
-      '<p class="eyebrow">Criador do app</p>' +
-      '<div class="card dev-hero">' +
-        '<img class="dev-avatar" src="' + esc(d.avatar) + '" alt="Foto de ' + esc(d.nome) + '" width="132" height="132">' +
-        '<div>' +
-          '<h1>' + esc(d.nome) + '</h1>' +
-          '<p class="dev-handle">@' + esc(d.login) + '</p>' +
-          '<p class="dev-role">' + esc(d.cargo) + '</p>' +
-          '<p class="dev-bio">' + esc(d.bio) + '</p>' +
-          '<div class="dev-meta">' +
-            (d.empresa ? '<span>🏢 ' + esc(d.empresa) + '</span>' : '') +
-            (d.local ? '<span>📍 ' + esc(d.local) + '</span>' : '') +
-            '<span>🎓 Design Profissional · Positivo</span>' +
-          '</div>' +
-          '<div class="dev-links">' +
-            '<a class="btn btn-dark" href="' + d.links.github + '" target="_blank" rel="noopener">' + ICONS.github + ' GitHub</a>' +
-            '<a class="btn btn-ghost" href="' + d.links.linkedin + '" target="_blank" rel="noopener">' + ICONS.linkedin + ' LinkedIn</a>' +
-            '<a class="btn btn-ghost" href="' + d.links.instagram + '" target="_blank" rel="noopener">' + ICONS.instagram + ' Instagram</a>' +
-            '<a class="btn btn-primary" href="https://github.com/' + USER + '/autocenter-veloz" target="_blank" rel="noopener">Código deste app</a>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="dev-stats">' +
-        '<div class="kpi"><span>Repositórios públicos</span><strong>' + d.stats.repos + '</strong></div>' +
-        '<div class="kpi"><span>Seguidores</span><strong>' + d.stats.followers + '</strong></div>' +
-        '<div class="kpi"><span>Seguindo</span><strong>' + d.stats.following + '</strong></div>' +
-      '</div>' +
-      '<h2 class="section-title">Stack</h2>' +
-      '<div class="chips">' + d.stack.map(function (s) { return '<span class="tag">' + esc(s) + '</span>'; }).join('') + '</div>' +
-      '<h2 class="section-title">Repositórios recentes</h2>' +
-      '<div class="repo-grid">' + d.repos.map(repoCard).join('') + '</div>' +
-      '<p class="live-note">' + (live ? 'Dados ao vivo da API pública do GitHub.' : 'Carregando dados ao vivo do GitHub…') + '</p>' +
-      '<h2 class="section-title">Sobre este projeto</h2>' +
+      '<a class="back" href="#/">← Início</a>' +
+      '<p class="eyebrow">Sobre o projeto</p>' +
+      '<h1>Veloz Acompanha</h1>' +
+      '<p class="lead">Estudo de Caso 3 da disciplina Design Profissional (Engenharia de Software, Universidade Positivo, 2º período). Projeto individual: pesquisa, UX, interface e código.</p>' +
       '<div class="project-facts">' +
         '<div class="card"><h3>O problema</h3><p>Telefone da recepção lotado, mecânicos interrompidos e carros parados no pátio esperando aprovação de orçamento.</p></div>' +
         '<div class="card"><h3>A decisão</h3><p>Web app instalável (PWA): o cliente abre pelo link do WhatsApp, sem baixar nada, e a equipe usa o mesmo produto.</p></div>' +
         '<div class="card"><h3>A construção</h3><p>HTML, CSS e JavaScript puros, sem build e sem credenciais. Funciona offline e roda no GitHub Pages.</p></div>' +
       '</div>' +
+      '<h2 class="section-title">Quem fez</h2>' +
+      '<div class="card dev-hero">' +
+        '<img class="dev-avatar" src="' + esc(d.avatar) + '" alt="Foto de ' + esc(d.nome) + '" width="120" height="120">' +
+        '<div>' +
+          '<h2>' + esc(d.nome) + '</h2>' +
+          '<p class="dev-handle">@' + esc(d.login) + '</p>' +
+          '<p class="dev-role">' + esc(d.cargo) + '</p>' +
+          '<p class="dev-bio">' + esc(d.bio) + '</p>' +
+          '<div class="dev-meta">' +
+            (d.empresa ? '<span>' + esc(d.empresa) + '</span>' : '') +
+            (d.local ? '<span>' + esc(d.local) + '</span>' : '') +
+            '<span>Engenharia de Software · Universidade Positivo</span>' +
+          '</div>' +
+          '<div class="dev-links">' +
+            '<a class="btn btn-dark" href="' + d.links.github + '" target="_blank" rel="noopener">' + ICONS.github + ' GitHub</a>' +
+            '<a class="btn btn-ghost" href="' + d.links.linkedin + '" target="_blank" rel="noopener">' + ICONS.linkedin + ' LinkedIn</a>' +
+            '<a class="btn btn-ghost" href="' + d.links.instagram + '" target="_blank" rel="noopener">' + ICONS.instagram + ' Instagram</a>' +
+            '<a class="btn btn-primary" href="https://github.com/' + USER + '/oficina-veloz" target="_blank" rel="noopener">Código deste app</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<h2 class="section-title">Outros repositórios</h2>' +
+      '<div class="repo-grid">' + d.repos.map(repoCard).join('') + '</div>' +
+      '<p class="live-note">' + (live ? 'Dados ao vivo da API pública do GitHub.' : 'Carregando dados ao vivo do GitHub…') + '</p>' +
+      '<h2 class="section-title" id="creditos">Créditos das fotos</h2>' +
+      '<p class="muted small">Fotos reais do Wikimedia Commons, usadas conforme cada licença. A oficina, as pessoas, placas e telefones são fictícios.</p>' +
+      '<ul class="credits">' + cred.map(function (c) {
+        return '<li>' + esc(c.uso) + ': foto de ' + esc(c.autor) + ', <a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.licenca) + '</a></li>';
+      }).join('') + '</ul>' +
       '</section>';
   }
 

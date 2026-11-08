@@ -3,13 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Veloz Acompanha: acompanhamento e aprovação digital de serviços da Auto Center Veloz.">
-  <meta name="author" content="Ricardo Medeiros">
-  <meta name="theme-color" content="#0f172a">
-  <title>Veloz Acompanha | Auto Center Veloz</title>
+  <title>Veloz Acompanha · estudo de caso de UX para oficina mecânica</title>
+  <meta name="description" content="Estudo de caso: web app em que o cliente da oficina acompanha o conserto e aprova o orçamento pelo celular, com foto da peça. Tour guiado de 2 minutos.">
+  <meta name="author" content="Ricardo Medeiros Marcato">
+  <meta name="theme-color" content="#16181d">
+  <link rel="canonical" href="https://mmarcatoricardo.github.io/oficina-veloz/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Veloz Acompanha">
+  <meta property="og:title" content="Veloz Acompanha · o cliente aprova o conserto pelo celular">
+  <meta property="og:description" content="Estudo de caso de UX e front-end: web app para oficina mecânica, com foto da peça, aprovação item a item e painel do pátio. Tour guiado de 2 minutos.">
+  <meta property="og:url" content="https://mmarcatoricardo.github.io/oficina-veloz/">
+  <meta property="og:image" content="https://mmarcatoricardo.github.io/oficina-veloz/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Capa do Veloz Acompanha: título 'Seu carro no elevador. Você no controle.' e a tela do cliente num celular">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="assets/img/hero.webp" media="(min-width: 801px)">
+  <link rel="preload" as="image" href="assets/img/hero-sm.webp" media="(max-width: 800px)">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="css/styles.css">
   <script>
     /* Aplica o tema salvo antes da pintura, para não piscar. */
@@ -17,27 +35,35 @@
   </script>
 </head>
 <body>
+  <a class="skip" href="#app">Pular para o conteúdo</a>
   <header class="topbar">
     <a class="brand" href="#/">
-      <span class="brand-mark" aria-hidden="true">V</span>
-      <span class="brand-text"><strong>Auto Center Veloz</strong><small>Veloz Acompanha</small></span>
+      <img src="assets/icon.svg" alt="" width="38" height="38">
+      <span class="brand-text"><strong>Veloz Acompanha</strong><small>para a Auto Center Veloz</small></span>
     </a>
-    <div class="topbar-right">
-      <nav class="nav" aria-label="Perfis">
-        <a href="#/cliente" data-nav="cliente">Cliente</a>
-        <a href="#/mecanico" data-nav="mecanico">Mecânico</a>
-        <a href="#/recepcao" data-nav="recepcao">Recepção</a>
-        <a href="#/desenvolvedor" data-nav="desenvolvedor">Desenvolvedor</a>
-      </nav>
-      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Alternar tema claro/escuro" title="Alternar tema">◐</button>
-    </div>
+    <nav class="nav" aria-label="Seções">
+      <a href="#/" data-nav="inicio">Início</a>
+      <a href="#/tour/1" data-nav="tour">Tour</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="#/cliente/OS-1042" data-nav="cliente">Cliente</a>
+      <a href="#/mecanico" data-nav="mecanico">Mecânico</a>
+      <a href="#/recepcao" data-nav="recepcao">Recepção</a>
+    </nav>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Alternar tema claro ou escuro" title="Alternar tema">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+    </button>
   </header>
 
   <main id="app" tabindex="-1"></main>
 
   <footer class="footer">
-    <span>Protótipo acadêmico · dados fictícios salvos só neste navegador · feito por <a href="#/desenvolvedor">Ricardo Medeiros</a></span>
-    <button class="link-btn" id="reset-demo" type="button">Restaurar dados de exemplo</button>
+    <span>Estudo de caso acadêmico · nomes, placas e telefones fictícios · os dados ficam só neste navegador</span>
+    <span class="footer-links">
+      <a href="#/sobre">Sobre o projeto</a>
+      <a href="https://github.com/MMarcatoRicardo/oficina-veloz" target="_blank" rel="noopener">Código no GitHub</a>
+      <a href="#/sobre" data-scroll="creditos">Créditos das fotos</a>
+      <button class="link-btn" id="reset-demo" type="button">Restaurar dados de exemplo</button>
+    </span>
   </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
