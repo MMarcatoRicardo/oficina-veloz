@@ -1,248 +1,139 @@
-# Auto Center Veloz · Veloz Acompanha
+# Veloz Acompanha
 
-> Web app para o cliente da oficina **acompanhar o conserto e aprovar o orçamento pelo celular**, com fotos das peças, enquanto mecânicos e recepção atualizam tudo em um só lugar.
+**Web app para oficina mecânica em que o cliente acompanha o conserto e aprova o orçamento pelo celular, vendo a foto da peça.**
 
-**Demo online:** https://mmarcatoricardo.github.io/autocenter-veloz/
+Estudo de caso de UX e front-end feito para a Auto Center Veloz, uma oficina fictícia criada para a disciplina de Design Profissional.
 
-Atividade avaliativa (Estudo de Caso 3) da disciplina **Design Profissional: Produção de Portfólio & Desenvolvimento Empresarial**, com o Prof. Sedenilso Antonio Machado.
-Autor: **Ricardo Medeiros**.
+[![Demo online](https://img.shields.io/badge/demo-abrir%20o%20tour%20de%202%20min-f5c400?style=for-the-badge&labelColor=16181d)](https://mmarcatoricardo.github.io/oficina-veloz/)
+![HTML5](https://img.shields.io/badge/HTML5-16181d?style=for-the-badge&logo=html5)
+![CSS3](https://img.shields.io/badge/CSS3-16181d?style=for-the-badge&logo=css)
+![JavaScript](https://img.shields.io/badge/JavaScript-16181d?style=for-the-badge&logo=javascript)
+![PWA](https://img.shields.io/badge/PWA-16181d?style=for-the-badge&logo=pwa)
 
----
+![Tour guiado: o mecânico fotografa a pastilha de freio, a cliente aprova no celular e o pátio anda](docs/screenshots/tour.gif)
 
-## Sumário
+## O problema
 
-1. [Briefing do problema](#1-briefing-do-problema)
-2. [Decisão de design: por que um web app](#2-decisão-de-design-por-que-um-web-app)
-3. [A solução](#3-a-solução)
-4. [Protótipo e telas](#4-protótipo-e-telas)
-5. [Arquitetura](#5-arquitetura)
-6. [Como executar](#6-como-executar)
-7. [Segurança e credenciais](#7-segurança-e-credenciais)
-8. [Próximos passos](#8-próximos-passos)
-9. [Licença](#9-licença)
+A oficina tem ótima reputação técnica, 5 elevadores e 6 mecânicos. O gargalo estava na **conversa com o cliente**, não no conserto:
 
----
+- o telefone da recepção não parava ("o carro já está pronto?", "manda foto da peça?");
+- os mecânicos largavam o elevador para responder à recepção;
+- os clientes demoravam horas para aprovar orçamento por mensagem, e o pátio lotava de carros parados.
 
-## 1. Briefing do problema
-
-**Cliente:** Auto Center Veloz, oficina de manutenção preventiva e corretiva de carros de passeio, dos sócios Eduardo (gerente de oficina) e Henrique (financeiro e compras). A oficina tem 5 elevadores, 6 mecânicos e 2 recepcionistas, e uma ótima reputação técnica.
-
-**Como funciona hoje:** a recepção cadastra o veículo e imprime o orçamento. Quando o mecânico encontra uma peça a mais para trocar, a recepção liga ou manda mensagem ao cliente pedindo autorização.
-
-**A dor:**
-
-| Sintoma | Consequência |
+| Antes: orçamento no papel | Depois: Veloz Acompanha |
 |---|---|
-| Telefone da recepção não para: "o carro já está pronto?", "manda foto da peça?" | Recepção sobrecarregada e atendimento lento |
-| Mecânicos param o serviço para responder à recepção | Menos produtividade nos elevadores |
-| Cliente demora horas para aprovar o orçamento por mensagem | Carro parado, elevador ou pátio ocupado |
-| Pátio lotado de carros aguardando resposta | Menos carros atendidos por dia |
-| Falha de comunicação | Risco de avaliações negativas na internet |
+| 10:00 o mecânico acha a pastilha gasta e vai até a recepção | 10:00 o mecânico fotografa a peça pelo celular |
+| 10:15 a recepção liga, a cliente está em reunião | 10:04 a cliente vê a foto e o preço e toca em "Aprovar" |
+| 13:40 chega um "pode trocar" por mensagem | 10:04 o serviço é liberado sozinho, sem passar pela recepção |
+| **3 h 40 com o elevador parado** | **4 min** |
 
-**A oportunidade:** as concessionárias já entregam relatório digital, mas cobram caro; as oficinas informais não entregam nada. A Veloz pode juntar a confiança técnica que já tem com **transparência e rapidez digital**, reduzindo o tempo que cada veículo passa no pátio.
+*Cenário ilustrativo, montado a partir do briefing do estudo de caso.*
 
-**Objetivo do produto:** reduzir o tempo entre "orçamento enviado" e "orçamento aprovado" e acabar com as ligações de status.
+## A solução
 
-## 2. Decisão de design: por que um web app
+Um **web app** com três visões no mesmo produto. O enunciado deixava escolher entre app nativo, site institucional ou sistema. Como o problema é de comunicação **durante** o serviço, a escolha foi um web app: abre por um link no WhatsApp, sem instalar nada.
 
-Avaliei as três opções da atividade:
-
-| Critério | App móvel nativo | Site institucional | **Web app responsivo (escolhido)** |
-|---|---|---|---|
-| Cliente precisa instalar algo? | Sim, e ninguém instala app de oficina para usar 2 vezes por ano | Não | **Não: abre por um link no WhatsApp** |
-| Resolve status e aprovação? | Sim | Não, só apresenta a empresa | **Sim** |
-| Mecânico usa no celular, com câmera? | Sim | Não | **Sim (`<input capture>`)** |
-| Fica na tela inicial do celular? | Sim | Não | **Sim (PWA instalável e offline)** |
-| Recepção tem painel de gestão? | Exigiria outro sistema | Não | **Sim, no mesmo produto** |
-| Custo e prazo para a oficina | Alto (lojas, duas plataformas) | Baixo | **Baixo (hospedagem estática)** |
-
-**Conclusão:** o problema é de **comunicação durante o serviço**, e não de divulgação. Por isso um site institucional não resolve. Um app nativo cria uma barreira, que é instalar. O **web app** chega ao cliente por um link enviado no WhatsApp, funciona em qualquer celular e, no mesmo produto, entrega as telas do mecânico e da recepção.
-
-### Princípios de design adotados
-
-- **Mobile-first:** o cliente e o mecânico usam o celular. Botões com no mínimo 44 px e ações principais sempre visíveis.
-- **Uma decisão por vez:** cada item do orçamento tem foto, explicação em linguagem simples, preço e dois botões (Aprovar ou Recusar). Também há "Aprovar todos".
-- **Transparência gera confiança:** a foto da peça com defeito e o motivo da troca ficam ao lado do preço.
-- **Status sempre visível:** uma linha do tempo em 6 etapas responde "como está meu carro?" sem ligação.
-- **Gargalo à vista:** a recepção vê em destaque os carros parados há mais de 60 min aguardando aprovação.
-- **Acessibilidade:** contraste adequado, foco visível, `aria-current` na etapa atual, `aria-live` nas notificações, tema escuro automático e respeito a `prefers-reduced-motion`.
-
-## 3. A solução
-
-O **Veloz Acompanha** tem três perfis, todos no mesmo web app:
-
-### Cliente
-- Encontra o carro pela **placa ou nº da OS**, pelo **QR code do comprovante** ou pelo **link recebido no WhatsApp**.
-- Vê a **etapa atual**, a previsão de entrega e o mecânico responsável.
-- Vê a **foto e a explicação** de cada peça com defeito e **aprova ou recusa item a item** (ou "Aprovar todos").
-- Quando responde todos os itens, o serviço é **liberado automaticamente** para o mecânico, sem passar pela recepção.
-- Pode ativar **notificações do navegador** para ser avisado a cada mudança de etapa.
-- Tem um **relatório digital** da OS, com itens, evidências fotográficas e histórico, que pode **salvar em PDF**. É o mesmo diferencial das concessionárias, sem o preço delas.
-- Na entrega, **avalia o atendimento** com estrelas. Nota 4 ou 5 vira convite para avaliar no Google; nota baixa avisa o gerente para resolver antes de virar avaliação negativa pública.
-- Botão **"Falar com a oficina"** abre o WhatsApp com a OS já identificada.
-
-### Mecânico
-- Vê só as **suas OS**, com o elevador de cada uma.
-- **Avança a etapa** com um toque, e o cliente é atualizado na hora.
-- Em "Encontrei um problema", **fotografa a peça pelo celular**, informa valor e explicação, e envia para aprovação.
-- O botão de avançar fica travado enquanto há itens aguardando o cliente, o que evita trabalho não autorizado.
-- Recebe aviso quando o cliente responde, sem a recepção precisar interromper.
-
-### Recepção e gestão (Eduardo e Henrique)
-- **Indicadores:** carros na oficina, aguardando aprovação, tempo médio de espera, prontos para retirada e **nota média dos clientes**.
-- **Mapa dos 5 elevadores:** livre ou ocupado, com alerta quando o carro está parado.
-- **Lista de OS** ordenada por urgência, com **busca** (placa, cliente, OS ou mecânico) e **filtro por etapa**.
-- Por OS: **comprovante com QR code**, **copiar link** e **enviar pelo WhatsApp** (mensagem pronta).
-- **Nova OS:** cadastro na entrada do veículo, que já abre o comprovante com QR, substituindo o orçamento em papel.
-- **Últimas avaliações** dos clientes.
-
-### Desenvolvedor
-- Aba **Desenvolvedor**, com o criador do app: foto, bio, links (GitHub, LinkedIn e Instagram) e repositórios, carregados **ao vivo da API pública do GitHub** (com dados de reserva se a API estiver fora).
-
-### App instalável (PWA)
-- Pode ser **instalado na tela inicial** do celular ou do computador, com ícone próprio, e **abre offline** (service worker).
-- **Tema claro e escuro**: segue o sistema e pode ser alternado no botão ◐.
-
-### Fluxo principal
-
-```mermaid
-sequenceDiagram
-    participant R as Recepção
-    participant M as Mecânico
-    participant C as Cliente
-    R->>C: Cria OS e envia link pelo WhatsApp
-    M->>M: Diagnóstico no elevador
-    M->>C: Adiciona item com foto (Aguardando aprovação)
-    C->>M: Aprova ou recusa pelo celular
-    Note over M: Serviço liberado automaticamente
-    M->>C: Em serviço → Testes → Pronto
-    C->>R: Retira o veículo (Entregue)
-```
-
-## 4. Protótipo e telas
-
-O protótipo é **navegável e funcional**: acesse a [demo online](https://mmarcatoricardo.github.io/autocenter-veloz/).
-
-> Dica: abra a tela do **mecânico** e a do **cliente** em duas abas. Quando o cliente aprova, a outra aba atualiza sozinha e mostra o aviso.
-
-| Cliente: status e aprovação | Cliente: avaliação na entrega | Criador do app |
+| Cliente (celular) | Mecânico (celular) | Recepção (computador) |
 |---|---|---|
-| ![Tela do cliente com status e aprovação de itens](docs/screenshots/cliente-mobile.png) | ![Tela do cliente com avaliação por estrelas](docs/screenshots/cliente-avaliacao.png) | ![Aba do desenvolvedor no celular](docs/screenshots/desenvolvedor-mobile.png) |
+| ![Tela do cliente com a foto da pastilha e os botões Aprovar e Recusar](docs/screenshots/tour-3-cliente.png) | ![Tela do mecânico com a foto já tirada e o botão Enviar para aprovação](docs/screenshots/tour-2-mecanico.png) | ![Painel da recepção com os elevadores e as ordens de serviço](docs/screenshots/tour-4-recepcao.png) |
 
-**Recepção: painel do pátio, com busca, filtros e avaliações**
+**Cliente**
+- Acompanha as 6 etapas do conserto pelo link do WhatsApp ou pelo QR code do comprovante.
+- Vê a **foto de cada peça com defeito** ao lado do preço e aprova ou recusa item por item.
+- Recebe um **relatório digital** com fotos e histórico (salva em PDF) e avalia o atendimento no fim.
 
-![Painel da recepção com indicadores, elevadores e ordens de serviço](docs/screenshots/recepcao.png)
+**Mecânico**
+- Vê só as próprias ordens de serviço e avança a etapa com um toque.
+- Em "Encontrei um problema", manda foto, valor e explicação direto para o cliente.
+- O botão de avançar trava enquanto o cliente não responde: nada é feito sem autorização.
 
-**Relatório digital da OS (salvável em PDF)**
+**Recepção e sócios**
+- Painel do pátio: os 5 elevadores, os carros esperando resposta (em amarelo) e a nota dos clientes.
+- Nova OS na chegada do carro, já com comprovante, QR code e mensagem pronta para o WhatsApp.
 
-![Relatório digital com itens, evidências fotográficas e histórico](docs/screenshots/relatorio.png)
+### Decisões de design
 
-**Mecânico: minhas OS**
+1. **Link, não loja de apps.** Ninguém instala app de oficina para usar duas vezes por ano.
+2. **Foto ao lado do preço.** A confiança vem de ver a peça, com o motivo em linguagem simples.
+3. **Uma decisão por vez.** Cada item tem só Aprovar ou Recusar; respondeu tudo, o serviço é liberado.
+4. **Gargalo à vista.** Carros esperando há mais de 1 hora ficam em amarelo no painel.
 
-![Painel do mecânico com etapas e itens do orçamento](docs/screenshots/mecanico.png)
+### Como o site se apresenta
 
-**Desenvolvedor**
+Quem chega pelo link não precisa adivinhar nada:
+- a **página inicial** conta o problema e a solução;
+- um **tour guiado de 4 passos** faz a pessoa viver o fluxo (WhatsApp → mecânico → cliente → pátio);
+- cada tela tem um painel **"O que olhar"** que explica os termos da oficina (OS, elevador).
 
-![Aba do desenvolvedor com perfil e repositórios do GitHub](docs/screenshots/desenvolvedor.png)
+## Stack e arquitetura
 
-**Página inicial**
-
-![Página inicial com os três perfis](docs/screenshots/home.png)
-
-## 5. Arquitetura
-
-Protótipo **100% front-end e estático**, sem build, pronto para o GitHub Pages. A única biblioteca externa é o gerador de QR code ([qrcodejs](https://github.com/davidshimjs/qrcodejs), via cdnjs); sem ela, o app continua funcionando e mostra só o link.
-
-```
-autocenter-veloz/
-├── index.html             # Estrutura da página (topo, área do app, rodapé)
-├── manifest.webmanifest   # PWA: nome, ícones, cores e atalhos
-├── sw.js                  # Service worker: cache do app para abrir offline
-├── assets/                # Ícones do app (SVG e PNG, incluindo maskable)
-├── css/
-│   └── styles.css         # Design system: tokens de cor, componentes, responsivo, temas, impressão
-├── js/
-│   ├── data.js            # Etapas do serviço, mecânicos, elevadores, oficina e dados de exemplo
-│   ├── dev.js             # Aba Desenvolvedor: perfil e repositórios via API pública do GitHub
-│   └── app.js             # SPA: rotas, telas, ações, notificações e persistência
-├── docs/screenshots/      # Capturas usadas neste README
-├── .gitignore
-├── LICENSE
-└── README.md
-```
+HTML, CSS e JavaScript puros, **sem framework e sem build**. Funciona offline e roda no GitHub Pages.
 
 | Camada | Decisão |
 |---|---|
-| Interface | HTML5 semântico + CSS3 (Grid, Flexbox, custom properties), sem framework |
-| Lógica | JavaScript puro (ES5+), em uma *single page application* com rotas `#/cliente`, `#/cliente/OS-1042`, `#/relatorio/OS-1042`, `#/mecanico`, `#/recepcao` e `#/desenvolvedor` |
-| Estado | Objeto `orders` persistido no `localStorage`. O evento `storage` sincroniza abas abertas em tempo real e gera os avisos (toast e Notification API) |
-| PWA | `manifest.webmanifest` + service worker com estratégia *network-first*: sempre a versão mais nova online e o cache quando offline |
-| Relatório | Página própria com CSS `@media print`, então o "Salvar PDF" do navegador gera um documento limpo |
-| Perfil do autor | `fetch` na API pública do GitHub (sem token), com dados de reserva embutidos |
-| Fotos | Capturadas pela câmera (`capture="environment"`), redimensionadas no `<canvas>` para 640 px em JPEG antes de salvar |
-| Segurança | Todo texto digitado é escapado antes de ir para o HTML (proteção contra XSS) |
-| Hospedagem | GitHub Pages (estático, HTTPS, gratuito) |
+| Interface | HTML semântico; CSS com Grid, custom properties e **container queries** (a mesma tela se adapta dentro da moldura de celular) |
+| Lógica | SPA em JavaScript com rotas por hash: `#/`, `#/tour/1-4`, `#/cliente/OS-1042`, `#/mecanico`, `#/recepcao`, `#/relatorio/:os`, `#/sobre` |
+| Estado | `localStorage`; o evento `storage` sincroniza abas abertas (aprove numa aba e veja a outra atualizar) |
+| PWA | `manifest.webmanifest` e service worker *network-first*: abre offline e pode ser instalado |
+| Notificações | Notification API e toasts com `aria-live` |
+| Relatório | Página com CSS de impressão: o "Salvar PDF" do navegador gera um documento limpo |
+| Segurança | Texto digitado é escapado antes de ir para o HTML; nenhuma chave, token ou senha no código |
 
-**Modelo de dados (uma OS):**
-
-```json
-{
-  "id": "OS-1042", "placa": "BRA2E19", "modelo": "VW Gol 1.0 2019",
-  "cliente": "Mariana Souza", "telefone": "41999990001",
-  "mecanico": "Carlos", "elevador": 1, "step": 2, "previsao": "Hoje, 17h30",
-  "itens": [{ "desc": "Pastilhas de freio", "valor": 260, "status": "pendente", "obs": "...", "foto": "data:image/..." }],
-  "timeline": [{ "t": 1759700000000, "msg": "Orçamento enviado para aprovação" }]
-}
+```
+oficina-veloz/
+├── index.html            # Página única com metatags (SEO e Open Graph)
+├── 404.html              # Página de erro do GitHub Pages
+├── manifest.webmanifest  # PWA
+├── sw.js                 # Service worker (offline)
+├── assets/               # Logo, ícones, imagem de compartilhamento e fotos (img/)
+├── css/styles.css        # Design system: tokens, componentes, temas claro/escuro, impressão
+├── js/data.js            # Etapas, mecânicos, dados de exemplo, cenário do tour e créditos
+├── js/app.js             # Rotas, telas, tour guiado e ações
+├── js/dev.js             # Página "Sobre": autor e repositórios via API pública do GitHub
+└── docs/screenshots/     # Imagens deste README
 ```
 
-**Arquitetura de produção (evolução proposta):** trocar o `localStorage` por uma API (por exemplo Node.js + PostgreSQL, ou um BaaS como Supabase/Firebase), guardar as fotos em armazenamento de objetos, autenticar a equipe e enviar notificações automáticas pela API oficial do WhatsApp Business. O front-end já está separado por perfis e ações, então só a camada de persistência muda.
+**Lighthouse** (07/11/2026, servidor local): desktop 99 · 100 · 100 · 100 e celular 96 · 100 · 100 · 100 (performance · acessibilidade · boas práticas · SEO).
 
-## 6. Como executar
+## Como rodar
 
-**Online:** acesse https://mmarcatoricardo.github.io/autocenter-veloz/
+Online: **https://mmarcatoricardo.github.io/oficina-veloz/**
 
-**Localmente** (não precisa instalar dependências):
+Localmente, sem instalar dependências:
 
 ```bash
-git clone https://github.com/MMarcatoRicardo/autocenter-veloz.git
-cd autocenter-veloz
-
-# opção 1: abrir direto no navegador
-start index.html        # Windows  (macOS: open index.html | Linux: xdg-open index.html)
-
-# opção 2: servidor local (recomendado)
+git clone https://github.com/MMarcatoRicardo/oficina-veloz.git
+cd oficina-veloz
 python -m http.server 8080
-# acesse http://localhost:8080
+# abra http://localhost:8080
 ```
 
-**Roteiro de teste (2 minutos):**
+Abrir o `index.html` direto também funciona. Só o modo offline (service worker) exige o servidor.
+Para recomeçar a demonstração, use **Restaurar dados de exemplo** no rodapé.
 
-1. Em **Recepção**, veja os 2 carros parados aguardando aprovação e a nota média dos clientes.
-2. Abra **Cliente** e escolha `BRA-2E19`. Veja as fotos, aprove as pastilhas de freio e recuse a palheta.
-3. Veja que a OS passou sozinha para **Em serviço**. Abra o **Relatório digital** e use "Salvar PDF".
-4. Em **Mecânico** (Carlos), avance as etapas até **Pronto para retirada**.
-5. Volte à **Recepção**, busque `BRA` e clique em **Entregar**. Na tela do cliente, avalie com estrelas.
-6. Use **+ Nova OS** para cadastrar um carro novo e veja o comprovante com QR code.
-7. Abra a aba **Desenvolvedor** para conhecer o criador do app.
-8. Para recomeçar, use **Restaurar dados de exemplo** no rodapé.
+## Contexto
 
-## 7. Segurança e credenciais
+- **Atividade:** Estudo de Caso 3, Oficina e Auto Center Veloz (prática individual)
+- **Disciplina:** Design Profissional: Produção de Portfólio e Desenvolvimento Empresarial, Prof. Sedenilso Antonio Machado
+- **Curso:** Engenharia de Software, Universidade Positivo, 2º período (outubro de 2026)
+- **Autor:** Ricardo Medeiros Marcato ([GitHub](https://github.com/MMarcatoRicardo) · [LinkedIn](https://www.linkedin.com/in/ricardo-medeiros-marcato/))
 
-- O projeto **não usa nenhuma credencial, senha, token ou chave de API**, nem no código nem no histórico de commits.
-- O envio pelo WhatsApp usa o link público `wa.me`, que não precisa de chave.
-- O `.gitignore` já bloqueia `.env`, `*.pem`, `*.key` e `secrets.*`, para quando o projeto evoluir para um back-end.
-- Todos os nomes, placas e telefones são **fictícios**.
+A oficina, as pessoas, placas e telefones são fictícios.
 
-## 8. Próximos passos
+### Créditos das fotos
 
-- Back-end com autenticação da equipe e link do cliente com token de acesso único.
-- Notificação automática pelo WhatsApp Business a cada mudança de etapa.
-- Pagamento por Pix na retirada.
-- Push notifications reais (Web Push) mesmo com o app fechado.
-- Relatórios para o Henrique: tempo médio por etapa, taxa de aprovação e faturamento por mecânico.
+Fotos do [Wikimedia Commons](https://commons.wikimedia.org/), usadas conforme cada licença:
 
-## 9. Licença
+| Uso | Autor | Licença |
+|---|---|---|
+| [Capa](https://commons.wikimedia.org/wiki/File:Car_repair_in_an_auto_shop_with_tools_and_equipment_present_on_the_floor_and_a_partially_disassembled_vehicle_on_a_lift.jpg), [mecânico](https://commons.wikimedia.org/wiki/File:Car_mechanic_worker_repairing_suspension_of_lifted_automobile_at_auto_repair_garage_shop.jpg) e [elevador](https://commons.wikimedia.org/wiki/File:Car_lift_in_an_auto_repair_shop_with_vehicles_and_tools_present.jpg) | Shixart1985 | CC BY 2.0 |
+| [Pastilha de freio](https://commons.wikimedia.org/wiki/File:Alarm_bells!_(25681917701).jpg) | Riley from Christchurch, New Zealand | CC BY 2.0 |
+| [Palheta do limpador](https://commons.wikimedia.org/wiki/File:Or_none_at_all._My_wiper_blades_have_not_moved_in_weeks_and_are_good_at_trapping_pine_needles._(2982646061).jpg) | cogdogblog | CC0 |
+| [Teste de bateria](https://commons.wikimedia.org/wiki/File:Car_battery.jpg) | Azorbli | CC BY-SA 4.0 |
+| [Amortecedor](https://commons.wikimedia.org/wiki/File:Federbein_Seicento.JPG) | Bukk | Domínio público |
 
-Distribuído sob a licença MIT. Veja [LICENSE](LICENSE).
+As fotos foram redimensionadas e convertidas para WebP. A biblioteca [qrcodejs](https://github.com/davidshimjs/qrcodejs) (MIT) gera os QR codes, e as fontes Barlow e Barlow Condensed vêm do Google Fonts (OFL).
 
-© 2026 Ricardo Medeiros
+## Licença
+
+Código sob a licença MIT. Veja [LICENSE](LICENSE). As fotos seguem as licenças da tabela acima.
