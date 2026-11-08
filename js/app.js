@@ -809,14 +809,14 @@
   }
 
   function viewNotFound() {
-    return '<div class="wrap"><section class="notfound">' +
-      '<img class="notfound-art" src="assets/carro-404.svg" width="680" height="320" alt="Carro amarelo com pane: a roda dianteira saiu rolando, sai fumaça do capô e uma placa mostra PAG-404">' +
-      '<p class="eyebrow">Erro 404 · página não encontrada</p>' +
-      '<h1>Placa não encontrada</h1>' +
-      '<p class="muted">Essa página não está no estoque: o endereço que você abriu não existe. Volte para o início, faça o tour de 2 minutos ou dê uma volta na estrada aí embaixo.</p>' +
-      '<div class="hero-actions" style="justify-content:center"><a class="btn btn-primary" href="#/tour/1">' + icon('play') + ' Fazer o tour</a><a class="btn btn-ghost" href="#/">Voltar para o início</a></div>' +
-      '</section>' +
-      '<section class="card jogo" aria-labelledby="jogo-t"><h2 id="jogo-t">Enquanto isso, dá uma volta</h2><div data-jogo404></div></section></div>';
+    return '<section class="notfound">' +
+      '<div class="notfound-cena" data-jogo404></div>' +
+      '<div class="notfound-texto">' +
+        '<p class="eyebrow">Erro 404 · página não encontrada</p>' +
+        '<h1>Placa não encontrada</h1>' +
+        '<p class="muted">Essa página não está no estoque: o endereço que você abriu não existe. Volte para o início ou faça o tour de 2 minutos.</p>' +
+        '<div class="hero-actions"><a class="btn btn-primary" href="#/tour/1">' + icon('play') + ' Fazer o tour</a><a class="btn btn-ghost" href="#/">Voltar para o início</a></div>' +
+      '</div></section>';
   }
 
   function abrirComprovante(o) {
@@ -879,6 +879,7 @@
     });
     Array.prototype.forEach.call(app.querySelectorAll('.screen'), function (s, i) { if (scrolls[i]) s.scrollTop = scrolls[i]; });
 
+    document.body.classList.toggle('is-404', !!app.querySelector('.notfound'));
     var jogo = app.querySelector('[data-jogo404]');
     if (jogo && window.Jogo404) window.Jogo404.mount(jogo);
     document.querySelectorAll('[data-nav]').forEach(function (a) {
