@@ -33,3 +33,10 @@ ehthumbs.db
 .idea/
 *.swp
 *~
+
+# Arquivos de assistentes e planos pessoais (não versionar)
+CLAUDE.md
+.claude/
+.agents/
+AGENTS.md
+PLANO_*.md
